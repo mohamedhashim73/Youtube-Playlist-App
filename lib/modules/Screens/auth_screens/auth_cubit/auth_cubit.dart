@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:code_app/shared/network/local_network.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -60,16 +61,17 @@ class AuthCubit extends Cubit<AuthStates>{
       );
       if( response.statusCode == 200 )
         {
-          var data = jsonDecode(response.body);
-          if( data['status'] == true )
+          var responseData = jsonDecode(response.body);
+          if( responseData['status'] == true )
             {
-              debugPrint("User login success and his Data is : $data");
+              // debugPrint("User login success and his Data is : ${responseData['data']['token']}");
+              await CacheNetwork.insertToCache(key: "token", value: responseData['data']['token']);
               emit(LoginSuccessState());
             }
           else
             {
-              debugPrint("Failed to login, reason is : ${data['message']}");
-              emit(FailedToLoginState(message: data['message']));
+              debugPrint("Failed to login, reason is : ${responseData['message']}");
+              emit(FailedToLoginState(message: responseData['message']));
             }
         }
     }
@@ -78,3 +80,19 @@ class AuthCubit extends Cubit<AuthStates>{
     }
   }
 }
+
+/*
+Response after login
+{
+    "status": true,
+    "message": "Registration done successfully",
+    "data": {
+        "name": "Saleh Ahmed",
+        "phone": "0125454412",
+        "email": "mohamed.hashim73@gmail.com",
+        "id": 52821,
+        "image": "https://student.valuxapps.com/storage/uploads/users/CpFliPNQdd_1677580291.jpeg",
+        "token": "EbiEk1Tt5UHmHaYbwLvcTdDRPQPYPCQccIBVhH1bwGDnfrAT78ddMB96IKMN3Nv8jpLQAk"
+    }
+}
+ */
