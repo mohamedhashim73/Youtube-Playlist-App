@@ -10,9 +10,10 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  void initState() {
-    Future.delayed(Duration(seconds: 5),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+  void initState()
+  {
+    Future.delayed(const Duration(seconds: 5),(){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     });
     // TODO: implement initState
     super.initState();

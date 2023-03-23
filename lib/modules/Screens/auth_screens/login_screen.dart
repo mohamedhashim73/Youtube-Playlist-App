@@ -6,9 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../../../layout/layout_screen.dart';
 import '../../Widgets/alert_dialog.dart';
 import 'auth_cubit/auth_states.dart';
+
 class LoginScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -58,7 +59,7 @@ class LoginScreen extends StatelessWidget {
             else if ( state is LoginSuccessState )
             {
               Navigator.pop(context);   // عشان يخرج من alertDialog
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen()));
             }
           },
           builder: (context,state){
@@ -68,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                   flex: 1,
                   child: Container(
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.only(bottom: 50.h),
+                    padding: EdgeInsets.only(bottom: 40.h),
                     child: const Text("Login to continue process",style: TextStyle(color: Colors.white,fontSize: 19,fontWeight: FontWeight.bold),),
                   ),
                 ),
@@ -76,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                   flex: 2,
                   child: Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 35),
+                    padding:const EdgeInsets.symmetric(horizontal: 35),
                     decoration: BoxDecoration(
                         color: thirdColor,
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(35),topRight: Radius.circular(35))

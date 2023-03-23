@@ -1,21 +1,32 @@
 class UserModel{
   String? name;
-  String? image;
   String? email;
   String? phone;
+  String? image;
   String? token;
-  int? id;
 
-  UserModel({required this.name,required this.token,required this.id,required this.email,required this.image,required this.phone});
+  // Constructor
+  UserModel(this.name,this.email,this.token,this.phone,this.image);
 
   // Named constructor
-  UserModel.fromJson(Map<String,dynamic> data){
+  UserModel.fromJson({required Map<String,dynamic> data}){
+    // Refactoring Map | Json
     name = data['name'];
-    image = data['image'];
-    token = data['token'];
     email = data['email'];
     phone = data['phone'];
-    id = data['id'];
+    image = data['image'];
+    token = data['token'];
+  }
+
+  // To Map
+  Map<String,dynamic> toMap(){
+    return {
+      'name' : name,
+      'email' : email,
+      'phone' : phone,
+      'token' : token,
+      'image' : image,
+    };
   }
 
 }

@@ -1,21 +1,21 @@
-import 'package:code_app/layout/layout_cubit/layout_cubit.dart';
 import 'package:code_app/layout/layout_screen.dart';
 import 'package:code_app/modules/Screens/auth_screens/auth_cubit/auth_cubit.dart';
-import 'package:code_app/modules/Screens/auth_screens/login_screen.dart';
-import 'package:code_app/modules/Screens/home_screen/home_screen.dart';
-import 'package:code_app/shared/constnts/constants.dart';
+import 'package:code_app/shared/constants/constants.dart';
 import 'package:code_app/shared/network/local_network.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'layout/layout_cubit/layout_cubit.dart';
+import 'modules/Screens/auth_screens/login_screen.dart';
 import 'shared/bloc_observer/bloc_observer.dart';
 
-Future<void> main() async {
+Future<void> main() async
+{
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   await CacheNetwork.cacheInitialization();
-  token = CacheNetwork.getCacheData(key: 'token');
-  print("token is : $token");
+  token = await CacheNetwork.getCacheData(key: 'token');
+  debugPrint("token is : $token");
   runApp(const MyApp());
 }
 
@@ -33,11 +33,11 @@ class MyApp extends StatelessWidget {
           providers:
           [
             BlocProvider(create: (context) => AuthCubit()),
-            BlocProvider(create: (context) => LayoutCubit()),
+            BlocProvider(create: (context) => LayoutCubit()..getCarts()..getFavorites()..getBannersData()..getCategoriesData()..getProducts()),
           ],
           child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: token != null && token != "" ? const LayoutScreen() : LoginScreen()
+              home: token != null ? const LayoutScreen() : LoginScreen()
           ),
         );
       },

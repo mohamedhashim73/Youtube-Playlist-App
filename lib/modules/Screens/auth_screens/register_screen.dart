@@ -8,6 +8,7 @@ import '../../Widgets/alert_dialog.dart';
 import '../home_screen/home_screen.dart';
 import 'auth_cubit/auth_cubit.dart';
 import 'auth_cubit/auth_states.dart';
+
 class RegisterScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -50,7 +51,7 @@ class RegisterScreen extends StatelessWidget {
         else if ( state is RegisterSuccessState )
         {
           Navigator.pop(context);   // عشان يخرج من alertDialog
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomeScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
         }
       },
       builder: (context,state){
@@ -58,7 +59,7 @@ class RegisterScreen extends StatelessWidget {
           appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,leading: const Text(""),),
           body: Center(
             child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Form(
                   key: formKey,
                   child: SingleChildScrollView(
@@ -80,6 +81,9 @@ class RegisterScreen extends StatelessWidget {
                           minWidth: double.infinity,
                           elevation: 0,
                           height: 40.h,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4)
+                          ),
                           color: mainColor,
                           onPressed: ()
                           {
